@@ -1,0 +1,267 @@
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+    <link rel="stylesheet" href="/static/css/homepage.css">
+  </head>
+
+  <body>
+      <div class  = 'container'> 
+        <div id="particles-js"></div>
+            <header>
+                <nav>
+                    <h1 class = "logo" style="color: rgb(255, 51, 0)"> Crypto Dashboard </h1>
+                    <ul class = "menu">
+                        <li><a class = "label_a" href = "#" style="color: rgb(255, 51, 0)"> Algorithm </a>
+                            <ul class = "submenu">
+                                <li><a class = "label_b" href = "#"> Time Series </a></li>
+                                <li><a class = "label_b"  href = "wiki\deeptcn"> Arima </a></li>
+                                <li><a class = "label_b"  href = "wiki\deeptcn"> ADI </a></li>
+                                <li><a class = "label_b"  href = "wiki\nbeats"> FbProphet </a></li>
+                                <li><a class = "label_b"  href = "wiki\nbeats"> Elder Immpulse </a></li>
+                                <li><a class = "label_b"  href = "wiki\nbeats"> Garch </a></li>
+                                <li><a class = "label_b"  href = "wiki\nbeats"> Cointegration </a></li>
+                                <li><a class = "label_a"  href = "#"> Classification </a>
+                                    <ul class = "submenu2">
+                                      <li><a class = "label_b"  href = "#"> RF </a></li>
+                                      <li><a class = "label_b"  href = "#"> Cluster </a></li>
+                                  </ul>
+                                </li>
+                                <ul class = "submenu2">
+                                    <li><a class = "label_a"  href = "#"> Multicalss </a></li>
+                                    <li><a class = "label_a"  href = "#"> Transformer </a></li>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li><a class = "label_a" href = "#" style="color: rgb(255, 51, 0)"> Exchanges </a>
+                            <ul class = "submenu">
+                                <li><a class = "label_a"  href = "targeting\"> Binance  </a></li>
+                                <li><a class = "label_a"  href = "#"> Kucoin  </a></li>
+                            </ul>
+                        </li>
+                        <li><a class = "label_a" href = "#" style="color: rgb(255, 51, 0)"> News  </a>
+                            <ul class = "submenu">
+                                <li><a class = "label_a"  href = "timeseries\"> Twitter </a></li>
+                                <li><a class = "label_a"  href = "classification\"> Telegram </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </header>	
+        <div class  = 'content'> 
+          <div class = 'inputs'>
+            <P style="color: rgb(252,124,12); font-family:'Times New Roman', Times, serif; font-size:x-large"> Inputs </P>
+            <input class = 'input_id' name="coin name" id = 'coin_id' placeholder="Coin_name" >
+            <select name="based col"  class = 'input_id' id = "col_id" >
+              <option value="" disabled selected> column </option>
+              <option value="Close"> close </option>
+              <option value="High"> high </option>
+              <option value="Open"> open </option>
+              <option value="Low"> low </option>
+              <option value="Transaction volume"> volume </option>
+              <option value="Transaction amount"> amount </option>
+            </select>
+
+            <select name="times"  class = 'input_id' id = "time_id" >
+              <option value="" disabled selected> Time </option>
+              <option value="1min"> 1 minute </option>
+              <option value="3min"> 3 minutes </option>
+              <option value="5min">5 minutes</option>
+              <option value="15min">15 minutes</option>
+              <option value="30min">30 minutes</option>
+              <option value="1hour">1 hour</option>
+              <option value="2hour">2 hours</option>
+              <option value="4hour">4 hours</option>
+              <option value="6hour">6 hours</option>
+              <option value = "12hour"> 12 hours</option> 
+              <option value = "1day"> 1 day </option> 
+              <option value = "1week"> 1 week </option> 
+            </select>
+
+            <input class = 'input_id' name="days" id = 'days_id' placeholder=" days ">
+            <button class = 'btn_class' type = 'submit' id = 'coin_price' onclick="button_output()"> get data </button>
+          </div>
+          <div class = 'plot' id = 'timeseries_plot_id'></div>
+        </div>
+        <div class  = 'content'> 
+          <div class = 'pie_plot' id = "sharpe_plot">
+
+          </div>
+          <div class = 'pie_plot' id = "hrp_plot">
+
+          </div>
+          <div class = 'pie_plot' id = 'gray_plot'>
+
+          </div>
+        </div>
+      </div>
+  </body>
+  <script type = "text/javascript" src = "/static/js/app_homepage.js"></script>
+  <script type = "text/javascript" src = "/static/js/particles_homepage.js"></script>
+  <script type = "text/javascript" src="/static/js/particle.js"></script>
+  <script>
+     
+ // ---------------------------------------------------------------
+
+ function pie_plot(values, label, id, title) {  
+  var data = [{
+    values : values,
+    labels : label,
+    type : "pie",
+    marker: {
+    color: '#e9e9e9'
+    }
+    }]
+
+    var layout = {
+      autosize: false,
+      title: {
+      text:`${title}`,
+      font: {
+        family: 'Times New Roman',
+        size: 20,
+        color: 'rgb(252,124,12)',
+      },
+      xref: 'paper',
+      x: 0.05,
+      },
+      margin: {
+      l: 20,
+      r: 5,
+      },
+      showlegend: true,
+      legend: {
+      traceorder: 'normal',
+      x: -5,
+      xanchor: 'right',
+      y: 1,
+      font: {
+        family: 'sans-serif',
+        size: 10,
+        color: 'rgb(252,124,12)'
+      },
+
+      },
+      height: 300,
+      width: 350,
+      paper_bgcolor: 'rgba(0,0,0,0)',
+      plot_bgcolor : 'rgba(0,0,0,0)'
+
+    };
+    Plotly.newPlot( `${id}`, data, layout);
+  }
+
+  function timeseries_plot(dates, data, coins_name) {
+    var list_dates = []
+    var traces = []
+
+    for (let index = 0; index < dates.length; index++) {
+        list_dates.push(dates[index])
+    }
+
+    for (let columns = 0; columns < coins_name.length; columns++) {
+        var one_data = []
+        for (let index = 0; index < data.length; index++) {
+            one_data.push(data[index][columns])
+        }
+        var trace = {
+          name : coins_name[columns],
+          x : list_dates,
+          y : one_data,
+          type : "scatter",
+        }
+        traces.push(trace)   
+      }
+    
+          var layout = {
+              xaxis : {
+                  showgrid: false,
+                  tickcolor: '#000',
+                  // title: 'Time',
+                  titlefont: {color: "rgb(252,124,12)",
+                              family: 'Times New Roman',
+                              size: 20},
+                              color : "rgb(252,124,12)"
+              },
+              yaxis :{
+                  showgrid: false,
+                  tickcolor: '#000',
+                  title: 'Value',
+                  titlefont: {color: "rgb(252,124,12)",
+                              family: 'Times New Roman',
+                              size: 20},
+                  color : "white"
+              },
+              title: {
+                  text : " coins prices ", 
+                  font: {
+                  family: 'Times New Roman',
+                  size: 20,
+                  color: 'rgb(252,124,12)',
+                  },
+                  },
+                  showlegend: true,
+                  legend: {
+                      font: {
+                      family: 'Times New Roman',
+                      size: 15,
+                      color: 'rgb(252,124,12)'
+                      },
+                  },
+                  height: 350,
+                  width: 1000,
+                  paper_bgcolor: 'rgba(0,0,0,0)',
+                  plot_bgcolor : 'rgba(0,0,0,0)'
+          }
+
+    // config = {staticPlot: true}
+    canvas = document.getElementById("timeseries_plot_id")
+    Plotly.newPlot(canvas, traces, layout) // ,{staticPlot: true},{scrollZoom: true}
+
+}
+
+  function button_output(params) {
+      var coins = document.getElementById("coin_id").value
+      var columns = document.getElementById("col_id").value
+      var time =  document.getElementById("time_id").value
+      var period = document.getElementById("days_id").value
+      
+      if (period && time && columns && coins){
+        send_data(coins, columns, time, period , function (data){
+          const coins_list = data.coins
+          const sharpe_w = data.sharpe_weights
+          const sharpe_n = data.sharpe_coins
+          const  hrp_n = data.hrp_coins
+          const hrp_w = data.hrp_weights
+          const gray_w = data.gray_weights
+          const gray_n = data.gray_coins
+
+          timeseries_plot( dates = data.real_date, data = data.real_data, coins_name = coins_list)
+          pie_plot(values = sharpe_w, label = sharpe_n, id = "sharpe_plot" , title = " Sharp ")
+          pie_plot(values = hrp_w, label = hrp_n , id = "hrp_plot" , title = " HRP ")
+          pie_plot(values = gray_w, label = gray_n , id = "gray_plot" , title = " Gray scale portfo ")
+          
+        })
+      }else{
+        alert(" inputs not complete")
+      }
+    }
+
+  function send_data(coins, column, time, period, callback) {
+      $.ajax({
+      url: 'homepage_plots',
+      type:'POST',
+      data : {'coins':coins, 'column' : column , "time" : time, 'period' : period},
+      
+      success: function(data){
+        callback(data);
+      }
+      })
+   }
+
+</script>
+</html>

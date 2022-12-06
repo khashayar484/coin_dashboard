@@ -5,8 +5,7 @@ first one is a homepage.
 here you can select your desire coins, you can seperate it by using ",", after selecting the time and period then its return the aggregating plot beside optimum porttfolio based on sharpe ratio and optimum portfolio based on HRP method, hierarchical riks parity, and also you can see the Grayscale, one of the greatest ivestor in crypto, portfolio. 
 
 ## illustration
-<img src="[https://user-images.githubusercontent.com/54494078/126708454-b060d01a-3d3f-45b6-af63-552eeb09eda4.PNG](https://drive.google.com/open?id=1gv8d507wJ0g8cQVsLW2MZ7015SdCSyrb&usp=drive_copy)" width="500" height="400" align = 'center' >
-https://drive.google.com/open?id=1gv8d507wJ0g8cQVsLW2MZ7015SdCSyrb&usp=drive_copy
+
 
 an above image shows the relational close price for 300 days by 12 hours data points and also create portfolio for these coins by shaerpe ratio and HRP methods.
 

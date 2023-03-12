@@ -11,10 +11,17 @@ And also there are some methods for trading based on famous algorithm trading me
 FBporphet or Arima. 
 you can also see your portfolio on Binance and kucoin and also set limits or market orders for trading.
 
+## Demo:
+https://user-images.githubusercontent.com/54494078/224529198-db764768-4e6c-40d9-8e04-4721dedf640c.mp4
+
 ## TODO:
 
 Some main features will be done, for example:
 
 In the news part, a client can get information from Twitter and telegram channels by applying sentiment analysis by Bert.
 In algorithm parts, some famous methods implement in order to make more information about a chosen coin.
+
+
+
+
 
